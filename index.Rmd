@@ -1,5 +1,5 @@
 ---
-title: "Title Will Go Here" #replace the title with something short and catchy to represent your project
+title: "Super Mario Maker" #replace the title with something short and catchy to represent your project
 subtitle: "Tony's Data Science Portfolio" #replace blank with your name
 output:
   html_document:
@@ -8,11 +8,35 @@ output:
 
 ## Abstract
 
-In under 250 words give a brief summary of the project so far.
+In a world where online gaming is becoming so popular, I want to analyze how users interact in an environment where other users are the creators. Super Mario Maker is a game where anyone can design a course based on the orignal *Super Mario*. This dataset contains information about the different courses users have created and how players have intereacted with them.
 
 ### 1. Discovery and Data Preparation
 
-Provide a one-sentence introduction with what is covered by the first deliverable along with a link to another html page that gives the details.
+In this deliverable, we will organize, clean and begin to visualize the data by use of some graphs. The original dataset can be found [here](https://www.kaggle.com/leomauro/smmnet/downloads/smmnet.zip/1#likes.csv).
+  
+
+First we will need to load a couple R libraries we will need in order to manipulate our data.
+```{r}
+suppressMessages(library(tidyverse))
+```
+
+First things first, lets read in our datasets. If you haven't downloaded the datasets yet, please do so from my [github](https://github.com/introdsci/DataScience-tonyburanzon).
+
+```{r}
+course_meta = read_csv("./datasets/course-meta.csv")
+course = read_csv("./datasets/courses.csv")
+colnames(course_meta)
+colnames(course)
+```
+
+As we can see the column names of our datasets are pretty well named except for 'catch' which is what they use for timestamp, so we will change that.
+```{r}
+colnames(course_meta)[colnames(course_meta) == "catch"] = "timestamp"
+```
+
+The data is also already pretty well organized and doesn't seem to violate any of the rules of tidy data. We can thank our source for that! Now lets move on and begin to visualize our data a bit. 
+
+
 
 ### 2. Model Planning and Building
 
