@@ -8,7 +8,7 @@ output:
 
 ## Abstract
 
-In a world where online gaming is becoming so popular, I want to analyze how users interact in an environment where other users are the creators. Super Mario Maker is a game where anyone can design a course based on the orignal *Super Mario*. This dataset contains information about the different courses users have created and how players have intereacted with them.
+In a world where online gaming is becoming so popular, I want to analyze how users interact in an environment where other users are the creators. Super Mario Maker is a game where anyone can design a course based on the orignal *Super Mario*. This dataset contains information about the different courses users have created and how players have intereacted with them. Addintionally, I chose this dataset because out of the box, this data is very clean and there is a ton of it. With this much data relating to different aspects of the game, it will surely provide an avenue to discover some interesting connections.
 
 ### 1. Discovery and Data Preparation
 
@@ -20,7 +20,9 @@ First we will need to load a couple R libraries we will need in order to manipul
 suppressMessages(library(tidyverse))
 ```
 
+####Data Retrieval
 First things first, lets read in our datasets. If you haven't downloaded the datasets yet, please do so from my [github](https://github.com/introdsci/DataScience-tonyburanzon).
+
 
 ```{r}
 course_meta = read_csv("./datasets/course-meta.csv")
@@ -29,12 +31,22 @@ colnames(course_meta)
 colnames(course)
 ```
 
+####Rename Columns
 As we can see the column names of our datasets are pretty well named except for 'catch' which is what they use for timestamp, so we will change that.
 ```{r}
 colnames(course_meta)[colnames(course_meta) == "catch"] = "timestamp"
 ```
 
-The data is also already pretty well organized and doesn't seem to violate any of the rules of tidy data. We can thank our source for that! Now lets move on and begin to visualize our data a bit. 
+The data is also already pretty well organized and doesn't seem to violate any of the rules of tidy data.Each row contains one sample, each column describes one aspect, and each value has its own cell. We can thank our source for that! Now lets move on and begin to visualize our data a bit. 
+
+####Visualization
+Here we can see how many of each course made there are categorized by difficulty.
+
+```{r}
+(plot = ggplot(data=course) + geom_bar(aes(x=course$difficulty), width=.3, fill='blue') 
+    + xlab("Difficulty") + ylab("Count"))
+```
+
 
 
 
