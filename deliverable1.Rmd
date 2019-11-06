@@ -16,8 +16,10 @@ First things first, lets read in our datasets. If you haven't downloaded the dat
 
 
 ```{r}
-course_meta = read_csv("./datasets/course-meta.csv")
-course = read_csv("./datasets/courses.csv")
+#course_meta = read_csv("./datasets/course-meta.csv")
+#course = read_csv("./datasets/courses.csv")
+course_meta = read_tsv("./datasets/course-meta.csv")
+course = read_tsv("./datasets/courses.csv")
 colnames(course_meta)
 colnames(course)
 ```
