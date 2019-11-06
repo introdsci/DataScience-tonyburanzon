@@ -12,7 +12,7 @@ In a world where online gaming is becoming so popular, I want to analyze how use
 
 ### 1. Discovery and Data Preparation
 
-In this deliverable, we will organize, clean and begin to visualize the data by use of some graphs. The original dataset can be found [here](https://www.kaggle.com/leomauro/smmnet/downloads/smmnet.zip/1#likes.csv).
+In this deliverable, we will organize, clean and begin to visualize the data by use of some graphs. The original dataset can be found [here](https://www.kaggle.com/leomauro/smmnet#course-meta.csv).
 
 [Deliverable 1](deliverable1.html)
   
