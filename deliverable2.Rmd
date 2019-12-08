@@ -1,0 +1,96 @@
+---
+title: "Deliverable #2"
+author: "Tony Buranzon"
+date: "12/3/2019"
+output: 
+  html_document:
+    df_print: paged
+---
+
+Welcome back. Here we will be continuing our analysis of the *Super Mario Maker* creators a maps started [here](deliverable1.html)
+```{r echo = FALSE, message=FALSE, error = FALSE, warning = FALSE, results = 'hide'}
+suppressMessages(library(tidyverse))
+suppressMessages(library(knitr))
+suppressMessages(library(DBI))
+purl("deliverable1.Rmd", output = "deliverable1.R")
+source("deliverable1.R")
+```
+
+
+Now first thing I wanted to do was import data from another source. At first I wanted to scrape some data from a website called [Super Mario Maker Bookmark](https://supermariomakerbookmark.nintendo.net/), but upon doing a little research, I found that someone has already done just that and imported that data into a SQLite database. And luckily enough, that person put that database publicly available up on their [github](https://github.com/tachyo/SMMData). So if you're following along, go ahead and download the .db file and continue on with me.  
+
+## Gathering the New Data  
+Now that we have our database, we need to connect to it so we can make some queries to grab what data we want out of it. 
+```{r}
+con = DBI::dbConnect(RSQLite::SQLite(), dbname = "datasets/SMM.db")
+dbListTables(con)
+```
+
+It appears there are two tables in this databse. **authors** and **levels**. Lets grab those out and take a look at them and see what we can predict. 
+```{r}
+course_db = as_tibble(tbl(con, "levels"))
+author_db = as_tibble(tbl(con, "authors"))
+course_db
+author_db
+```
+## Tidying the Data
+These two tables appear to already be in pretty good shape. Not much tidying we have to do other than assigning levels to our factor variables. 
+```{r}
+course_db$name = as.factor(course_db$name)
+course_db$theme = as.factor(course_db$theme)
+course_db$difficulty = as.factor(course_db$difficulty)
+course_db$author_id = as.factor(course_db$author_id)
+```
+
+And lets do the same for our **authors** table. 
+```{r}
+author_db$country = as.factor(author_db$country)
+```
+
+Next, I want bring the country of orgin of each the courses into the **courses_db** table, so we will need to rename the *id* column to match the column in the **author** table. Then joing them together.
+```{r}
+colnames(author_db)[colnames(author_db) == "id"] = "author_id"
+course_db = inner_join(select(author_db, author_id, country), course_db, by = "author_id")
+```
+That's all there is to do for tidying. Now lets move on to developing our models.
+
+## Modeling
+  
+First we will load the required library to break apart our data into a train and test set. Then set the seed so those following along will be able to produce the same results. 
+
+```{r message=FALSE, error = FALSE, warning = FALSE, results = 'hide'}
+library(caret) 
+set.seed(99909) #An arbitrary seed
+```
+
+Next we will split up the data so we can train our model then test it to see how accurately we can predict an attribute.
+
+```{r}
+sample = createDataPartition(course_db$country, p = .75, list = FALSE)
+train = course_db[sample, ]
+test = course_db[-sample, ]
+```
+
+Now that we have our data separated, we can build our model to predict how popular a course is.
+
+```{r}
+liked_model = lm(liked ~ difficulty + played + shared + clear_rate + tries_taken + tries_success + country, data = train )
+summary(liked_model)
+```
+
+In our model, we are looking for values with a p-score (the PR(>|t|)), values to be <.05). As we can see all the variables account for this except for the country. Those values have a much higher score most of which are approaching 1. So in hind-sight, we did not need to join the two tables we got out of the database. Lets rebuild that model and drop the country.
+
+
+```{r}
+liked_model = lm(liked ~ difficulty + played + shared + clear_rate + tries_taken + tries_success, data = train )
+summary(liked_model)
+```
+
+Now these variables seem to accomplish predictions much better. Our Adjusted R-squared value is .9337 showing that our model is statistically significant. Now lets go ahead and use our model to predict the likeness of our test data.
+
+```{r}
+predictions = liked_model %>% predict(test)
+R2(predictions, test$liked)
+```
+
+As we can see, using R2, which gives us the R-squared value of our predictions, shows us that our model predicted our results with 94% confidence. This is a satisfying result. 
