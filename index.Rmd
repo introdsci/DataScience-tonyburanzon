@@ -20,7 +20,8 @@ In this deliverable, we will organize, clean and begin to visualize the data by 
 
 ### 2. Model Planning and Building
 
-Coming soon...
+Next up, we will find another datasource, and attempt to create a model in order to make some predictions about our data.
+Check it out here at [Deliverable 2](deliverable2.html)
 
 ### 3. Results and Operationalization
 
