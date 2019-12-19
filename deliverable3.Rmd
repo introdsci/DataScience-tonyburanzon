@@ -1,0 +1,17 @@
+---
+title: "Deliverable #3"
+author: "Tony Buranzon"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r echo = FALSE, message=FALSE, error = FALSE, warning = FALSE, results = 'hide'}
+suppressMessages(library(tidyverse))
+suppressMessages(library(knitr))
+suppressMessages(library(DBI))
+purl("deliverable2.Rmd", output = "deliverable2.R")
+source("deliverable2.R")
+```
+
+Welcome back. As we continue on, in this deliverable I plan to summarize the whole of the project as well as provide some insight as to how this data and our findings can operationalized moving forward. 
