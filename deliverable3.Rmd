@@ -14,3 +14,6 @@ Looking back, what we have done is gathered data from datasources which describe
 
 ## Operationalization
 Based on the findings we have made, it seems our data would be most useful to those who are making courses and want their creations to become popular. They could use this data to find what seems to be the current trends so they can create courses that match these characteristics. A drawback from this is if a creator solely made tracks that were meant to become popular by using targeted resaetrch such as our findings, is that creator really creating what they truly want to make? 
+
+## Moving Forward
+If I were to continue working on this project, I would want to continue collecting data since courses are constantly being created and played and trends are always changing. I would also like to try and find some data which relates *Super Mario Maker* and *Twitch* users. Twitch is a streaming service which has become very popular. I would imagine creators who stream on twitch will be more popular than those who do not. 
