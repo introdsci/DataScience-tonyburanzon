@@ -37,7 +37,7 @@ course_meta
 ```
 
 #### Visualization
-Here we can see how many of each course made there are categorized by difficulty.
+Here we can see how many of each course was made categorized by difficulty.
 
 ```{r}
 (plot = ggplot(data=course) + geom_bar(aes(x=course$difficulty), width=.3, fill='blue') 
