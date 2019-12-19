@@ -44,5 +44,8 @@ Here we can see how many of each course was made categorized by difficulty.
     + xlab("Difficulty") + ylab("Count"))
 ```
 
+#### Moving Forward
+Moving forward some of the questions I would like to answer is what makes a course a course popular. I plan to answer this by looking into what courses with high amounts of plays have in common. Is there anything specifically that contributes to the likeness of a course being higher than others? As of now, it's hard to say what exactly could lead to this, but I'm guessing who made the course and what difficulty it is will contribute a lot to its likeness.
+
 
 
