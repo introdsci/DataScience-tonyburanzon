@@ -11,20 +11,18 @@ First we will need to load a couple R libraries we will need in order to manipul
 suppressMessages(library(tidyverse))
 ```
 
-####Data Retrieval
+#### Data Retrieval
 First things first, lets read in our datasets. If you haven't downloaded the datasets yet, please do so from my [github](https://github.com/introdsci/DataScience-tonyburanzon).
 
 
 ```{r}
-#course_meta = read_csv("./datasets/course-meta.csv")
-#course = read_csv("./datasets/courses.csv")
 course_meta = read_tsv("./datasets/course-meta.csv")
 course = read_tsv("./datasets/courses.csv")
 colnames(course_meta)
 colnames(course)
 ```
 
-####Rename Columns
+#### Rename Columns
 As we can see the column names of our datasets are pretty well named except for 'catch' which is what they use for timestamp, so we will change that.
 ```{r}
 colnames(course_meta)[colnames(course_meta) == "catch"] = "timestamp"
@@ -32,7 +30,13 @@ colnames(course_meta)[colnames(course_meta) == "catch"] = "timestamp"
 
 The data is also already pretty well organized and doesn't seem to violate any of the rules of tidy data.Each row contains one sample, each column describes one aspect, and each value has its own cell. We can thank our source for that! Now lets move on and begin to visualize our data a bit. 
 
-####Visualization
+Now lets go ahead and take a look at our tidy datasets. 
+```{r}
+course
+course_meta
+```
+
+#### Visualization
 Here we can see how many of each course made there are categorized by difficulty.
 
 ```{r}
