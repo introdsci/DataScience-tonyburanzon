@@ -40,9 +40,25 @@ course_meta
 Here we can see how many of each course was made categorized by difficulty.
 
 ```{r}
-(plot = ggplot(data=course) + geom_bar(aes(x=course$difficulty), width=.3, fill='blue') 
+(difficulty_total_plot = ggplot(data=course) + geom_bar(aes(x=course$difficulty), width=.3, fill='blue') 
     + xlab("Difficulty") + ylab("Count"))
 ```
+
+Next, lets take a look at how many times each course was played based on its difficulty. First lets get the total number of attempts for each course. Since our course_meta table rows contain how many attempts each person has done on a given course, we will want to aggregate the sum of all these attempts, group them by course_id, then append that column to the course table.
+```{r}
+course = inner_join(aggregate(course_meta$attempts, by=list(id=course_meta$id), FUN=sum), course, by='id')
+colnames(course)[colnames(course) == "x"] = "attempts"
+```
+
+Now lets build our next graph to show attempts based on difficulty.
+```{r}
+attempts_vs_diffuculty = aggregate(course$attempts, by=list(course$difficulty), FUN=sum)
+colnames(attempts_vs_diffuculty)[colnames(attempts_vs_diffuculty) == 'Group.1'] = "difficulty"
+colnames(attempts_vs_diffuculty)[colnames(attempts_vs_diffuculty) == 'x'] = "count"
+(attempts_vs_diffuculty_plot = ggplot(data=attempts_vs_diffuculty, aes(difficulty, count) ) + geom_bar(width=.3, fill = 'blue', stat='identity')) + labs(x="Difficulty",y="Attempts")
+```
+
+As we can see, courses with the *superExpert* tag have about 4x as many attempts that any other course difficulty. When we think about this, it is expected since superExpert courses are much harder thus require many more attempts to beat that level.
 
 #### Moving Forward
 Moving forward some of the questions I would like to answer is what makes a course a course popular. I plan to answer this by looking into what courses with high amounts of plays have in common. Is there anything specifically that contributes to the likeness of a course being higher than others? As of now, it's hard to say what exactly could lead to this, but I'm guessing who made the course and what difficulty it is will contribute a lot to its likeness.
