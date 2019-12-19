@@ -94,3 +94,6 @@ R2(predictions, test$liked)
 ```
 
 As we can see, using R2, which gives us the R-squared value of our predictions, shows us that our model predicted our results with 94% confidence. This is a satisfying result. 
+
+## Deliverable 2 Conclusion
+So, I this deliverable we have gotten a new dataset from a database which already scraped the website I intended to scrape. We created a couple models to look at how well liked a given course is. Then we validated this model by using our model to predict the likeness of our test set. 
