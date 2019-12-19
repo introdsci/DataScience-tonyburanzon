@@ -52,7 +52,7 @@ Next, I want bring the country of orgin of each the courses into the **courses_d
 colnames(author_db)[colnames(author_db) == "id"] = "author_id"
 course_db = inner_join(select(author_db, author_id, country), course_db, by = "author_id")
 ```
-That's all there is to do for tidying. Now lets move on to developing our models.
+That's all there is to do for tidying. All our variables have their own column in their respective tables, each row represents a different observation, and each value has its own cell. Now lets move on to developing our models.
 
 ## Modeling
   
